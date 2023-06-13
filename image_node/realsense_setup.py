@@ -45,7 +45,7 @@ class Realsense_Module():
             color_image = np.asanyarray(color_frame.get_data())
             depth_image = np.asanyarray(depth_frame.get_data())
             img_flag=True
-            return color_image,depth_image,img_flag
+            return color_image,depth_image,depth_frame,img_flag
         except Exception as e :
             print(e)
             color_image=None
@@ -53,6 +53,17 @@ class Realsense_Module():
             img_flag=False
             return color_image,depth_image,img_flag
 
+    def obtain_point(self,result_frame,box_result) :
+        result_pos=[]
+        for u_v in box_result :
+            u = int(u_v[0])
+            v = int(u_v[1])
+            #3次元座標推定
+            i_d = result_frame.get_distance(u,v)
+            point = rs.rs2_deproject_pixel_to_point(self.color_intrinsics , [u,v], i_d)
+            result_pos.append(point)
+        return result_pos
+        
     def depth_filter(self,depth_frame):
         #TODO recursive median filterを入れる
         # decimarion_filterのパラメータ

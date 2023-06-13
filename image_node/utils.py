@@ -13,9 +13,9 @@ class Coordinate_Transformation():
         cam_pos=np.array([100, 100, 100])
         arm_pos=np.array([200, 200, 70])
         world_pos=np.array([0, 0, 0])
-        cam_rotation_matrix=np.array([[0,0,0],[0,0,0], [0,0,0]])
+        cam_rotation_matrix=np.array([[1,0,0],[0,1,0], [0,0,1]])
         cam_translation_vector=world_pos-cam_pos
-        arm_rotation_matrix=np.array([[0,0,0],[0,0,0], [0,0,0]])
+        arm_rotation_matrix=np.array([[1,0,0],[0,1,0], [0,0,1]])
         arm_translation_vector=arm_pos-world_pos
 
         def __init__(self,R):
@@ -32,6 +32,17 @@ class Coordinate_Transformation():
                 #target coordinates
                 target_coordinates=self.world_to_arm(world_coordinates,self.arm_rotation_matrix,self.arm_translation_vector)
                 return target_coordinates
+        
+        def tf(self,result_pos):
+                target_pos= np.empty((0, 3))
+                for camera_coordinates in result_pos :              
+                    #image→arm
+                    world_coordinates=self.camera_to_world(camera_coordinates,self.cam_rotation_matrix,self.cam_translation_vector)
+                    #target coordinates
+                    target_coordinates=self.world_to_arm(world_coordinates,self.arm_rotation_matrix,self.arm_translation_vector)
+                    target_pos= np.vstack((target_pos, target_coordinates))
+                    print(target_pos)
+                return target_pos
         
         def image_to_camera(self,u, v, Z):
                 X_c = (u - self.cx) * Z / self.fx 

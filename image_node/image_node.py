@@ -28,10 +28,11 @@ class Image_Processing(Node):
         
     
     def node_callback(self):
-        color_image,depth_image,img_flag=self.realsense_module.obtain_cam_image()
-        outputs,box_result,bool_array = self.seg.detact(color_image) 
-        #zも入れたい box result1の中に
-        #self.transform.transformation(box_result)
+        color_image,depth_image,depth_frame,img_flag=self.realsense_module.obtain_cam_image()
+        outputs,box_result,bool_array = self.seg.detact(color_image)
+        result_pos=self.realsense_module.obtain_point(depth_frame,box_result)
+        self.transform.tf(result_pos)
+        print()
         if img_flag :
             cv2.namedWindow('RealSense', cv2.WINDOW_AUTOSIZE)
             cv2.imshow('RealSense', outputs)
