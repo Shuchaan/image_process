@@ -1,4 +1,4 @@
 # Image-node
 画像ノード
 
-![image_node](https://github.com/Hibikino-Toms-Robot/Image-node/assets/82552894/759f369a-e643-4cd2-92b9-868eda1d554a)
+![image](https://github.com/Hibikino-Toms-Robot/image_process/assets/82552894/6b0d4acc-c4f7-4ba5-93d1-5bdf74ae9696)
