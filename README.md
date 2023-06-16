@@ -1,4 +1,12 @@
 # Image-node
 画像ノード
 
-![image](https://github.com/Hibikino-Toms-Robot/image_process/assets/82552894/105b8bb2-040d-4468-a49e-1dbddf44c422)
+
+ファイル構成
+---image_node-------image_node.py　メインで動くノード　下記のライブラリを読んで実行
+              　|　
+              　|---realsense_setup.py　realsenseを呼び出すライブラリ,フィルタ処理なども作成
+　              | 　
+              　|---instanse_seg.py　インスタンスセグメンテーションのライブラリ
+              　|
+              　|---utils.py　座標変換、熟度判定のツール
